@@ -39,8 +39,10 @@ function extraireInfo(xmlDoc) {
   printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
   let inventaireJoueur = obtenirChemin(xmlDoc,'SaveGame/player/items');
   for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
-    let item = inventaireJoueur.children[i];
-    printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
+    let item = inventaireJoueur.children[i]; let nomitem = obtenirParametre(item,'name');
+    if(nomitem == '') {
+      printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
+    }
   }
   printStr += '</tbody></table>';
   // Inventaire des farmhands.
@@ -51,8 +53,10 @@ function extraireInfo(xmlDoc) {
       printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
       for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
         let inventaireJoueur = obtenirChemin(farmhands[j],'items');
-        let item = inventaireJoueur.children[i];
-        printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
+        let item = inventaireJoueur.children[i]; let nomitem = obtenirParametre(item,'name');
+        if(nomitem == '') {
+          printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
+        }
       }
       printStr += '</tbody></table>';
     }
