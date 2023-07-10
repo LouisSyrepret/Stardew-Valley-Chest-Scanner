@@ -1,5 +1,5 @@
 function inform(text) {
-  document.getElementById('output_info').innerHTML += text+'<br>;
+  document.getElementById('output_info').innerHTML += text+'<br>';
 }
 
 function handleFileSelect(evt) {
