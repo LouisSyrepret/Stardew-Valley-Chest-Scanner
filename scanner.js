@@ -36,6 +36,7 @@ function tableau(entete,items) {
   let returnStr = '';
   returnStr += '<table><thead><tr><th colspan=3>'+entete+'</th></tr>';
   returnStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
+  console.log(items);
   for(let i = 0; i<items.length; i++) {
     let item = items[i]; let nomitem = obtenirParametre(item,'name');
     if(nomitem == '') {
