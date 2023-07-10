@@ -52,13 +52,13 @@ function extraireInfo(xmlDoc) {
   let printStr;
   
   // Inventaire du joueur principal.
-  printStr += tableau('Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name'), obtenirChemin(xmlDoc,'SaveGame/player/items'));
+  printStr += tableau('Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name'), obtenirChemin(xmlDoc,'SaveGame/player/items').getElementsByTagName('Item'));
   
   // Inventaire des farmhands.
   let farmhands = xmlDoc.getElementsByTagName('farmhand');
   if(farmhands.length > 0) {
     for(let j = 0; j<farmhands.length; j++) {
-      printStr += tableau('Inventaire de '+obtenirParametre(farmhands[j],'name'), obtenirChemin(farmhands[j],'items').getElementsByTagName('item'));
+      printStr += tableau('Inventaire de '+obtenirParametre(farmhands[j],'name'), obtenirChemin(farmhands[j],'items').getElementsByTagName('Item'));
     }
   }
 
@@ -75,7 +75,7 @@ function extraireInfo(xmlDoc) {
         let Objets = Bat.getElementsByTagName('Object');
         for(let O = 0; O<Objets.length; O++) {
           if(Objets[O].getAttribute('xsi:type') == 'Chest') {
-            printStr += tableau('Coffre ('+obtenirParametre(Bat,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items').getElementsByTagName('item'));
+            printStr += tableau('Coffre ('+obtenirParametre(Bat,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items').getElementsByTagName('Item'));
           }
         }
       }
@@ -85,7 +85,7 @@ function extraireInfo(xmlDoc) {
       for(let I = 0; I<items.length; I++) {
         if(obtenirChemin(items[I],'value/Object').getAttribute('xsi:type') == 'Chest') {
           let Chest = obtenirChemin(items[I],'value/Object');
-          printStr += tableau('Coffre ('+obtenirParametre(xmlDoc,'SaveGame/player/name')+')', obtenirChemin(Chest,'items').getElementsByTagName('item'));
+          printStr += tableau('Coffre ('+obtenirParametre(xmlDoc,'SaveGame/player/name')+')', obtenirChemin(Chest,'items').getElementsByTagName('Item'));
         }
       }
     } // Tout le reste.
@@ -93,7 +93,7 @@ function extraireInfo(xmlDoc) {
       let AllObjects = GameLoc.getElementsByTagName('Object');
       for(let a = 0; a<AllObjects.length; a++) {
         if(AllObjects[a].getAttribute('xsi:type') == 'Chest') {
-          printStr += tableau('Coffre', obtenirChemin(AllObjects[a],'items').getElementsByTagName('item'));
+          printStr += tableau('Coffre', obtenirChemin(AllObjects[a],'items').getElementsByTagName('Item'));
         }
       }
     }
