@@ -1,5 +1,6 @@
 function extraireInfo(xmlDoc) {
   let farmhands = xmlDoc.getElementsByTagName('farmhand');
+  console.log(xmlDoc, xmlDoc.getElementsByTagName('farmhand'));
   //let jsobj = {farmhands:[]};
   let printStr = '<b>Farmhands</b> : ';
   if(farmhands.length == 0) { printStr += '<i>none</i>'; }
