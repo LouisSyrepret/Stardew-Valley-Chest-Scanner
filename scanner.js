@@ -8,5 +8,5 @@ function extraireInfo(xmlDoc) {
     printStr += ' '+farmhands[i].getElementsByTagName('name')[0].innerText+(i+1 == farmhands.length ? '' : ',');
   }
   printStr += '<br>';
-  return {print:printStr};
+  return {printversion:printStr};
 }
