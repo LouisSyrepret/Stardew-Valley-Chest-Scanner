@@ -62,7 +62,7 @@ function extraireInfo(xmlDoc) {
   }
 
   // Parcours des coffres.
-  let locations = obtenirChemin(xmlDoc,'SaveGame/Locations').getElementsByTagName('GameLocation');
+  let locations = obtenirChemin(xmlDoc,'SaveGame/locations').getElementsByTagName('GameLocation');
   for(let L = 0; L<locations.length; L++) {
     let GameLoc = locations[L]; let type = GameLoc.getAttribute('xsi:type');
     // Là où vivent les colocataires.
