@@ -1,13 +1,17 @@
+// Afficher info.
+function info(text) {
+  document.getElementById('output_info').innerHTML += text+'<br>;
+}
+
 // Gets the save file.
 function handleFileSelect(evt) {
-  let file = evt.target.files[0], reader = new FileReader();
-  reader.onload = function (e) {
-    let output = "", xmlDoc = $.parseXML(e.target.result);
-    let farmhands = xmlDoc.getElementsByTagName("farmhand");
-    for(let i = 0; i<farmhands.length; i++) {
-      document.getElementById('output_info').innerHTML += "Farmhand : "+farmhands[i].getElementsByTagName("name")[0].innerText+'<br>';
-    }
+  let file = evt.target.files[0];
+  const xhr = new XMLHttpRequest();
+  xhr.onload = () => {
+    info(xhr.responseXML.documentElement.nodeName);
   };
-  reader.readAsText(file);
+  xhr.open("GET", file);
+  xhr.responseType = "document";
+  xhr.send();
 }
 document.getElementById('savefileinput').addEventListener('change', handleFileSelect, false);
