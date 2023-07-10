@@ -1,16 +1,11 @@
-function inform(text) {
-  document.getElementById('output_info').innerHTML += text+'<br>';
+function extraireInfo(xmlDoc) {
+  let farmhands = xmlDoc.getElementsByTagName('farmhand');
+  //let jsobj = {farmhands:[]};
+  let printStr = '<b>Farmhands</b> : ';
+  if(farmhands.length == 0) { printStr += '<i>none</i>'; }
+  for(let i = 0; i<farmhands.length; i++) {
+    printStr += ' '+farmhands[i].getElementsByTagName('name')[0].innerText)+(i+1 == farmhands.length ? '' : ',');
+  }
+  printStr += '<br>';
+  return {print:printStr};
 }
-
-function handleFileSelect(evt) {
-  let file = evt.target.files[0];
-  const xhr = new XMLHttpRequest();
-  xhr.onload = () => {
-    inform(xhr.responseXML.documentElement.nodeName);
-  };
-  xhr.open("GET", file);
-  xhr.responseType = "document";
-  xhr.send();
-}
-
-document.getElementById('savefileinput').addEventListener('change', handleFileSelect, false);
