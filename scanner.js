@@ -30,7 +30,7 @@ function etoile(qualite) {
 // Ce bloc de code a pour but de récupérer le contenu de tous les inventaires et les coffres.
 function extraireInfo(xmlDoc) {
   let printStr = '<table><thead><tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
-  let inventaireJoueur = obtenirChemin('SaveGame/player/items');
+  let inventaireJoueur = obtenirChemin(xmlDoc,'SaveGame/player/items');
   for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
     let item = inventaireJoueur.children[i];
     printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+obtenirParametre(item,'type')+'</td></tr>';
