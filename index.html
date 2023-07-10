@@ -2,6 +2,7 @@
   <head>
     <meta charset='utf-8'>
     <title>Stardew Valley Items Scanner</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   </head>
   <body>
     <div id="fond">
@@ -19,14 +20,15 @@
       }
       
       function handleFileSelect(evt) {
-        let file = evt.target.files[0];
-        const xhr = new XMLHttpRequest();
-        xhr.onload = () => {
-          inform(xhr.responseXML.documentElement.nodeName);
-        };
-        xhr.open("GET", file);
-        xhr.responseType = "document";
-        xhr.send();
+        let file = evt.target.files[0],	reader = new FileReader();
+        reader.onload = function (e) {
+			    let xmlDoc = $.parseXML(e.target.result);
+          let farmhands = xmlDoc.getElementsByTagName('farmhand');
+          for(let i = 0; i<farmhands.length; i++) {
+            inform("Farmhand : "+farmhands[i].getElementsByTagName('name')[0].innerText);
+          }
+        }
+        reader.readAsText(file);
       }
       
       document.getElementById('savefileinput').addEventListener('change', handleFileSelect, false);
