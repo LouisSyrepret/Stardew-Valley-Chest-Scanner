@@ -1,9 +1,9 @@
 function obtenirXChemin(xmlDoc,chemin) {
-  return xmlDoc.evaluate(chemin, xmlDoc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  return xmlDoc.document.evaluate(chemin, xmlDoc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 }
 
 function obtenirParametre(xmlDoc,code) {
-  let node = xmlDoc.evaluate(chemin, xmlDoc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  let node = xmlDoc.document.evaluate(chemin, xmlDoc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   if(node == undefined) {
     return '';
   } else {
