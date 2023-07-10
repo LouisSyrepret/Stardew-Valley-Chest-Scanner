@@ -14,6 +14,8 @@
         <div id="output_info"></div>
       </div>
     </div>
+	  
+    <script src="./scanner.js"></script>
     <script>
       function inform(text) {
         document.getElementById('output_info').innerHTML += text+'<br>';
@@ -22,17 +24,14 @@
       function handleFileSelect(evt) {
         let file = evt.target.files[0],	reader = new FileReader();
         reader.onload = function (e) {
-			    let xmlDoc = $.parseXML(e.target.result);
-          let farmhands = xmlDoc.getElementsByTagName('farmhand');
-          for(let i = 0; i<farmhands.length; i++) {
-            inform("Farmhand : "+farmhands[i].getElementsByTagName('name')[0].innerText);
-          }
+	  let xmlDoc = $.parseXML(e.target.result);
+          let info = extraireInfo(xmlDoc);
+	  inform(info.printversion);
         }
         reader.readAsText(file);
       }
       
       document.getElementById('savefileinput').addEventListener('change', handleFileSelect, false);
     </script>
-    <!--script src="./scanner.js"></script-->
   </body>
 </html>
