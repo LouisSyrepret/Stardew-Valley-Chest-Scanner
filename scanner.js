@@ -46,14 +46,14 @@ function extraireInfo(xmlDoc) {
   // Inventaire des farmhands.
   let farmhands = xmlDoc.getElementsByTagName('farmhand');
   if(farmhands.length > 0) {
-    printStr += '<table><thead><tr><th colspan=3>Inventaire de '+obtenirChemin(farmhands[i],'name')+'</th></tr>';
-    printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
-    let inventaireJoueur = obtenirChemin(farmhands[i],'items');
     for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
+      printStr += '<table><thead><tr><th colspan=3>Inventaire de '+obtenirChemin(farmhands[i],'name')+'</th></tr>';
+      printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
+      let inventaireJoueur = obtenirChemin(farmhands[i],'items');
       let item = inventaireJoueur.children[i];
       printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
+      printStr += '</tbody></table>';
     }
-    printStr += '</tbody></table>';
   }
   return {printversion:printStr};
 }
