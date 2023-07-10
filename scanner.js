@@ -69,11 +69,12 @@ function extraireInfo(xmlDoc) {
     if(type == "Farm") {
       let Batiments = obtenirChemin(GameLoc,'buildings').getElementsByTagName('Building');
       for(let B = 0; B<Batiments.length; B++) {
-        if(obtenirParametre(B,'indoors/farmhand/name') == '') { continue; }
-        let Objets = B.getElementsByTagName('Object');
+        let Bat = Batiments[B];
+        if(obtenirParametre(Bat,'indoors/farmhand/name') == '') { continue; }
+        let Objets = Bat.getElementsByTagName('Object');
         for(let O = 0; O<Objets.length; O++) {
           if(Objets[O].getAttribute('xsi:type') == 'Chest') {
-            printStr += tableau('Coffre ('+obtenirParametre(B,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items'));
+            printStr += tableau('Coffre ('+obtenirParametre(Bat,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items'));
           }
         }
       }
