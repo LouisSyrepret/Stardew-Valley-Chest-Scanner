@@ -21,11 +21,14 @@
         document.getElementById('output_info').innerHTML += text+'<br>';
       }
 
+      let XMLfile;
+
       function handleFileSelect(evt) {
         let file = evt.target.files[0],	reader = new FileReader();
         reader.onload = function (e) {
 	  let xmlDoc = $.parseXML(e.target.result);
 	  console.log(xmlDoc);
+	  XMLfile = xmlDoc;
 	  document.getElementById('output_info').innerHTML = '';
           let info = extraireInfo(xmlDoc);
 	  inform(info.printversion);
