@@ -24,7 +24,7 @@ function obtenirParametre(xmlDoc,code) {
 }
 
 function etoile(qualite) {
-  if(qte == '') { return ''; }
+  if(qualite == '') { return ''; }
   let qte = Number(qualite);
   if(qte == 1) { return 'argent'; }
   if(qte == 2) { return 'or'; }
