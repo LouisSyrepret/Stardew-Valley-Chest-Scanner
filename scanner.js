@@ -9,7 +9,7 @@ function obtenirChemin(xmlDoc,chemin) {
     }
     let possibilites = NODE.getElementsByTagName(nom);
     if(num >= possibilites.length) { return null; }
-    NODE = NODE.getElementsByTagName(nom)[num];
+    NODE = NODE.getElementsByTagName(nom)[num-1];
   }
   return NODE;
 }
