@@ -32,35 +32,71 @@ function etoile(qualite) {
   if(qte == 0) { return ''; }
 }
 
-// Ce bloc de code a pour but de récupérer le contenu de tous les inventaires et les coffres.
-function extraireInfo(xmlDoc) {
-  // Inventaire du joueur principal.
-  let printStr = '<table><thead><tr><th colspan=3>Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name')+'</th></tr>';
-  printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
-  let inventaireJoueur = obtenirChemin(xmlDoc,'SaveGame/player/items');
-  for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
-    let item = inventaireJoueur.children[i]; let nomitem = obtenirParametre(item,'name');
+function tableau(entete,items) {
+  let returnStr = '';
+  returnStr += '<table><thead><tr><th colspan=3>'+entete+'</th></tr>';
+  returnStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
+  for(let i = 0; i<items.length; i++) {
+    let item = items[i]; let nomitem = obtenirParametre(item,'name');
     if(nomitem == '') {
-      printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
+      returnStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
     }
   }
-  printStr += '</tbody></table>';
+  returnStr += '</tbody></table>';
+  return returnStr;
+}
+
+// Ce bloc de code a pour but de récupérer le contenu de tous les inventaires et les coffres.
+function extraireInfo(xmlDoc) {
+  let printStr;
+  
+  // Inventaire du joueur principal.
+  printStr += tableau('Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name'), obtenirChemin(xmlDoc,'SaveGame/player/items'));
+  
   // Inventaire des farmhands.
   let farmhands = xmlDoc.getElementsByTagName('farmhand');
   if(farmhands.length > 0) {
     for(let j = 0; j<farmhands.length; j++) {
-      printStr += '<table><thead><tr><th colspan=3>Inventaire de '+obtenirParametre(farmhands[j],'name')+'</th></tr>';
-      printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
-      for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
-        let inventaireJoueur = obtenirChemin(farmhands[j],'items');
-        let item = inventaireJoueur.children[i]; let nomitem = obtenirParametre(item,'name');
-        if(nomitem == '') {
-          printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
-        }
-      }
-      printStr += '</tbody></table>';
+      printStr += tableau('Inventaire de '+obtenirParametre(farmhands[j],'name'), obtenirChemin(farmhands[j],'items'));
     }
   }
+
+  // Parcours des coffres.
+  let locations = obtenirChemin(xmlDoc,'SaveGame/Locations').getElementsByTagName('GameLocation');
+  for(let L = 0; L<locations.length; L++) {
+    let GameLoc = locations[L]; let type = GameLoc.getAttribute('xsi:type');
+    // Là où vivent les colocataires.
+    if(type == "Farm") {
+      let Batiments = obtenirChemin(GameLoc,'buildings').getElementsByTagName('Building');
+      for(let B = 0; B<Batiments.length; B++) {
+        if(obtenirParametre(B,'indoors/farmhand/name') == '') { continue; }
+        let Objets = B.getElementsByTagName('Object');
+        for(let O = 0; O<Objets.length; O++) {
+          if(Objets[O].getAttribute('xsi:type') == 'Chest') {
+            printStr += tableau('Coffre ('+obtenirParametre(B,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items'));
+          }
+        }
+      }
+    } // La maison de base.
+    else if(type == "FarmHouse") {
+      let items = obtenirChemin(GameLoc,'objects').getElementsByTagName('item');
+      for(let I = 0; I<items.length; I++) {
+        if(obtenirChemin(items[I],'value/Object').getAttribute('xsi:type') == 'Chest') {
+          let Chest = obtenirChemin(items[I],'value/Object');
+          printStr += tableau('Coffre ('+obtenirParametre(xmlDoc,'SaveGame/player/name')+')', obtenirChemin(Chest,'items'));
+        }
+      }
+    } // Tout le reste.
+    else {
+      let AllObjects = GameLoc.getElementsByTagName('Object');
+      for(let a = 0; a<AllObjects.length; a++) {
+        if(AllObjects[a].getAttribute('xsi:type') == 'Chest') {
+          printStr += tableau('Coffre', obtenirChemin(AllObjects[a],'items'));
+        }
+      }
+    }
+  }
+  
   return {printversion:printStr};
 }
 
