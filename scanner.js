@@ -5,11 +5,11 @@ function obtenirChemin(xmlDoc,chemin) {
     let sect = sections[s]; let nom = sect; let num = 0;
     if(sect.indexOf('[') != -1) {
         nom = sect.slice(0,sect.indexOf('['));
-        num = sect.slice(sect.indexOf('[')+1, sect.indexOf(']'));
+        num = Number(sect.slice(sect.indexOf('[')+1, sect.indexOf(']')))-1;
     }
     let possibilites = NODE.getElementsByTagName(nom);
     if(num >= possibilites.length) { return null; }
-    NODE = NODE.getElementsByTagName(nom)[num-1];
+    NODE = NODE.getElementsByTagName(nom)[num];
   }
   return NODE;
 }
