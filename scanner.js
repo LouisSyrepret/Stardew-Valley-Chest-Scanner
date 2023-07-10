@@ -35,7 +35,7 @@ function etoile(qualite) {
 // Ce bloc de code a pour but de récupérer le contenu de tous les inventaires et les coffres.
 function extraireInfo(xmlDoc) {
   // Inventaire du joueur principal.
-  let printStr = '<table><thead><tr><th colspan=3>Inventaire de '+obtenirChemin(xmlDoc,'SaveGame/player/name')+'</th></tr>';
+  let printStr = '<table><thead><tr><th colspan=3>Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name')+'</th></tr>';
   printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
   let inventaireJoueur = obtenirChemin(xmlDoc,'SaveGame/player/items');
   for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
@@ -47,14 +47,14 @@ function extraireInfo(xmlDoc) {
   let farmhands = xmlDoc.getElementsByTagName('farmhand');
   if(farmhands.length > 0) {
     for(let j = 0; j<farmhands.length; j++) {
-      printStr += '<table><thead><tr><th colspan=3>Inventaire de '+obtenirChemin(farmhands[j],'name')+'</th></tr>';
+      printStr += '<table><thead><tr><th colspan=3>Inventaire de '+obtenirParametre(farmhands[j],'name')+'</th></tr>';
       printStr += '<tr><th>Élément</th><th>Quantité</th><th>Commentaire</th></tr></thead><tbody>';
       for(let i = 0; i<inventaireJoueur.childElementCount; i++) {
         let inventaireJoueur = obtenirChemin(farmhands[j],'items');
         let item = inventaireJoueur.children[i];
         printStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
-        printStr += '</tbody></table>';
       }
+      printStr += '</tbody></table>';
     }
   }
   return {printversion:printStr};
