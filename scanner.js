@@ -52,7 +52,7 @@ function extraireInfo(xmlDoc) {
   let printStr;
   
   // Inventaire du joueur principal.
-  printStr += tableau('Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name'), obtenirChemin(xmlDoc,'SaveGame/player/items').getElementsByTagName('item'));
+  printStr += tableau('Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name'), obtenirChemin(xmlDoc,'SaveGame/player/items'));
   
   // Inventaire des farmhands.
   let farmhands = xmlDoc.getElementsByTagName('farmhand');
