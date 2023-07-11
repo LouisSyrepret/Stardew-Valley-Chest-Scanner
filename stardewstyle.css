@@ -47,4 +47,19 @@ table thead tr:first-child th {
 div#output_info {
     display: flex;
     overflow: auto;
+    max-height: 75%;
+}
+
+label.xmlinput {
+    background-color: darkkhaki;
+    padding: 5px 10px; margin: 5px;
+    display: inline-flex;
+    border-radius: 3px;
+    font-weight: 600;
+    border: 2px outset khaki;
+    
+}
+
+input[type='file'] {
+    display: none;
 }
