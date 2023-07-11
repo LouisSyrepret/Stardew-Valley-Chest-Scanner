@@ -1,5 +1,11 @@
+body {
+    background: linear-gradient(0deg, rgba(9,129,93,1) 0%, rgba(50,224,144,1) 15%, rgba(232,249,242,1) 28%, rgba(180,230,211,1) 36%, rgba(152,255,219,1) 44%, rgba(0,212,255,1) 54%, rgba(9,9,121,1) 100%);
+}
+
 div#fond {
-    background: linear-gradient(0deg, #a78f52 0%, #a78f52 5%, green 20%, skyblue 40%, white 100%);
+    background-image: radial-gradient(rgba(0,0,0,0.2) 8%, transparent 15%);
+    background-position: 0 0;
+    background-size: 16px 16px;
     position: absolute;
     left:  0px;
     width: 100%;
@@ -8,34 +14,43 @@ div#fond {
 }
 
 div#boite {
-    margin: 5% 20%;
+    margin: 5% 5%;
     padding: 10px;
-    background-color: darkkhaki;
     border-radius: 5px;
     font-family: Arial;
-    overflow: auto;
     max-height: 80%;
+    background-color: rgba(255,255,255,0.5);
 }
 
 thead {
-    background-color: rebeccapurple;
+    background-color: #c25d2c;
     color: white;
 }
 
-td {
-    text-align: center;
-    background-color: rgba(255,255,255,0.2);
-}
-
 td,th {
-    font-size: 0.8em;
-    padding: 2px 10px;
+    text-align: center;
+    font-size: 10pt;
 }
 
 th {
     padding: 5px 20px;
 }
 
+td {
+    padding: 2px 10px;
+    background-color: rgba(255,255,255,0.2);
+}
+
 table {
     margin: 10px;
+    background-color: darkkhaki;
+}
+
+table thead tr:first-child th {
+    background-color:#cc0e04;
+}
+
+div#output_info {
+    display: flex;
+    overflow: auto;
 }
