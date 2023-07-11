@@ -1,11 +1,5 @@
-body {
-    background: linear-gradient(0deg, rgba(9,129,93,1) 0%, rgba(50,224,144,1) 15%, rgba(232,249,242,1) 28%, rgba(180,230,211,1) 36%, rgba(152,255,219,1) 44%, rgba(0,212,255,1) 54%, rgba(9,9,121,1) 100%);
-}
-
 div#fond {
-    background-image: radial-gradient(rgba(0,0,0,0.2) 8%, transparent 15%);
-    background-position: 0 0;
-    background-size: 16px 16px;
+    background: linear-gradient(0deg, rgba(9,129,93,1) 0%, rgba(50,224,144,1) 15%, rgba(232,249,242,1) 28%, rgba(180,230,211,1) 36%, rgba(152,255,219,1) 44%, rgba(0,212,255,1) 54%, rgba(9,9,121,1) 100%);
     position: absolute;
     left:  0px;
     width: 100%;
