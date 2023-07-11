@@ -39,7 +39,7 @@ function tableau(entete,items) {
   console.log(items);
   for(let i = 0; i<items.length; i++) {
     let item = items[i]; let nomitem = obtenirParametre(item,'name');
-    if(nomitem == '') {
+    if(nomitem != '') {
       returnStr += '<tr><td>'+obtenirParametre(item,'name')+'</td><td>'+obtenirParametre(item,'Stack')+'</td><td>'+etoile(obtenirParametre(item,'quality'))+'</td></tr>';
     }
   }
