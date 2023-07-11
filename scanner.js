@@ -49,7 +49,7 @@ function tableau(entete,items) {
 
 // Ce bloc de code a pour but de récupérer le contenu de tous les inventaires et les coffres.
 function extraireInfo(xmlDoc) {
-  let printStr;
+  let printStr = '';
   
   // Inventaire du joueur principal.
   printStr += tableau('Inventaire de '+obtenirParametre(xmlDoc,'SaveGame/player/name'), obtenirChemin(xmlDoc,'SaveGame/player/items').getElementsByTagName('Item'));
@@ -71,11 +71,15 @@ function extraireInfo(xmlDoc) {
       let Batiments = obtenirChemin(GameLoc,'buildings').getElementsByTagName('Building');
       for(let B = 0; B<Batiments.length; B++) {
         let Bat = Batiments[B];
-        if(obtenirParametre(Bat,'indoors/farmhand/name') == '') { continue; }
+        let isFarmer = (obtenirParametre(Bat,'indoors/farmhand/name') != '');
         let Objets = Bat.getElementsByTagName('Object');
         for(let O = 0; O<Objets.length; O++) {
           if(Objets[O].getAttribute('xsi:type') == 'Chest') {
-            printStr += tableau('Coffre ('+obtenirParametre(Bat,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items').getElementsByTagName('Item'));
+            if(isFarmer) {
+              printStr += tableau('Coffre ('+obtenirParametre(Bat,'indoors/farmhand/name')+')', obtenirChemin(Objets[O],'items').getElementsByTagName('Item'));
+            } else {
+              printStr += tableau('Coffre', obtenirChemin(Objets[O],'items').getElementsByTagName('Item'));
+            }
           }
         }
       }
